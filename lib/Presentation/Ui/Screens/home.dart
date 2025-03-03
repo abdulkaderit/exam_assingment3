@@ -1,5 +1,6 @@
 import 'package:exam_assinment/Presentation/Ui/widgets/Product_Card.dart';
 import 'package:flutter/material.dart';
+import '../../../Style/style.dart';
 import '../widgets/ProductController.dart';
 
 class Module13Assignment extends StatefulWidget {
@@ -27,11 +28,11 @@ class _Module13AssignmentState extends State<Module13Assignment> {
     TextEditingController productTotalPriceController = TextEditingController();
 
     productNameController.text = name ?? '';
-    productQtyController.text = qty != null ? qty.toString() : '0';
+    productQtyController.text = qty != null ? qty.toString() : '';
     productImageController.text = img ?? '';
 
-    productUnitPriceController.text =unitPrice  != null ?  unitPrice.toString() : '0';
-    productTotalPriceController.text =totalPrice !=null ? totalPrice.toString() : '0';
+    productUnitPriceController.text =unitPrice  != null ?  unitPrice.toString() : '';
+    productTotalPriceController.text =totalPrice !=null ? totalPrice.toString() : '';
 
     showDialog(
         context: context,
@@ -40,27 +41,32 @@ class _Module13AssignmentState extends State<Module13Assignment> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          SizedBox(height: 8),
           TextField(
             controller: productNameController,
-            decoration: InputDecoration(labelText: 'Product name'),
+            decoration: appInputDecoration('Product name'),
           ),
+          SizedBox(height: 8),
           TextField(
             controller: productImageController,
-            decoration: InputDecoration(labelText: 'Product Image'),
+            decoration: appInputDecoration('Product Image'),
           ),
+          SizedBox(height: 8),
           TextField(
             controller: productQtyController,
-            decoration: InputDecoration(labelText: 'Product Qty'),
+            decoration: appInputDecoration('Product Qty'),
           ),
+          SizedBox(height: 8),
           TextField(
             controller: productUnitPriceController,
-            decoration: InputDecoration(labelText: 'Product unit price'),
+            decoration: appInputDecoration('Product unit price'),
           ),
+          SizedBox(height: 8),
           TextField(
             controller: productTotalPriceController,
-            decoration: InputDecoration(labelText: 'Total price'),
+            decoration: appInputDecoration('Total price'),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10),
           Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -70,26 +76,26 @@ class _Module13AssignmentState extends State<Module13Assignment> {
               }, child: Text("Close")),
               SizedBox(width: 5,),
               ElevatedButton(onPressed: (){
-                  if(id == null){
-                    productController.createProducts(
-                        productNameController.text,
-                        productImageController.text,
-                        int.parse(productQtyController.text),
-                        int.parse(productUnitPriceController.text),
-                        int.parse(productTotalPriceController.text));
-                  }else{
-                    productController.updateProducts(
-                        id,
-                        productNameController.text,
-                        productImageController.text,
-                        int.parse(productQtyController.text),
-                        int.parse(productUnitPriceController.text),
-                        int.parse(productTotalPriceController.text));
-                  }
+                if(id == null){
+                  productController.createProducts(
+                      productNameController.text,
+                      productImageController.text,
+                      int.parse(productQtyController.text),
+                      int.parse(productUnitPriceController.text),
+                      int.parse(productTotalPriceController.text));
+                }else{
+                  productController.updateProducts(
+                      id,
+                      productNameController.text,
+                      productImageController.text,
+                      int.parse(productQtyController.text),
+                      int.parse(productUnitPriceController.text),
+                      int.parse(productTotalPriceController.text));
+                }
 
-                  fetchData();
-                  Navigator.pop(context);
-                  setState(() { });
+                fetchData();
+                Navigator.pop(context);
+                setState(() { });
 
               }, child: Text(
                   id == null ? "Add Product" : 'Update Product')
@@ -165,7 +171,8 @@ class _Module13AssignmentState extends State<Module13Assignment> {
           },
         ),
       floatingActionButton: FloatingActionButton(onPressed: () =>productDialog(),
-        child: Icon(Icons.add,color: Colors.black,),
+        backgroundColor: Colors.cyan,
+        child: Icon(Icons.add,color: Colors.white,weight: 5,),
       ),
     );
   }
